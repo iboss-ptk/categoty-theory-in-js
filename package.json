@@ -1,0 +1,8 @@
+{
+  "name": "ct-show",
+  "version": "1.0.0",
+  "description": "demonstrating practical usage of category theory",
+  "main": "index.js",
+  "author": "Supanat I'Boss Potiwarakorn",
+  "license": "MIT"
+}
