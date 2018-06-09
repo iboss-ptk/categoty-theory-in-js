@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Logger from './log'
+import { Logger, clear } from './log'
+import Functor from './lib/functor'
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1 className="App-Title">CT SHOW</h1>
-        <Logger log="hi" />
+        Howdy, FP mind :D
       </div>
     )
   }
@@ -17,5 +17,10 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 // Hot Module Replacement
 if (module.hot) {
-  module.hot.accept();
+  module.hot.accept(() => {
+    setTimeout(() => {
+      clear()
+      Logger.show()
+    })
+  });
 }
