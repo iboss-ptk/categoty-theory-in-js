@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "babel-preset-env": "^1.7.0",
+    "folktale": "^2.1.0",
+    "immutable": "^3.8.2",
     "ramda": "^0.25.0",
     "react": "^16.0.0",
     "react-console-component": "^0.6.1",
