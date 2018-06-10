@@ -16,15 +16,6 @@ const getPersonById = id => ({
   5: { name: 'Cos', age: { year: 27, month: 1 } },
 })[id]
 
-// getPersonByIdTask :: number -> Task[Person]
-const getPersonByIdTask = id => task(({ resolve, reject }) => {
-  const person = getPersonById(id)
-  if (person) {
-    resolve(person)
-  } else {
-    reject('person not found')
-  }
-})
 
 // findFriendsWithinOneYear :: Person -> List[Person]
 const findFriendsWithinOneYear = person =>
@@ -35,18 +26,24 @@ const findFriendsWithinOneYear = person =>
       && name !== person.name
     )
 
+// == with task ==
+// getPersonByIdTask :: number -> Task[Person]
+const getPersonByIdTask = id => task(({ resolve, reject }) => {
+  const person = getPersonById(id)
+  if (person) {
+    resolve(person)
+  } else {
+    reject('person not found')
+  }
+})
+
 // findFriendsWithinOneYearTask :: Person -> Task[List[Person]]
 const findFriendsWithinOneYearTask = person => task(({ resolve, reject }) => {
   resolve(findFriendsWithinOneYear(person))
 })
 
 // flatten structure
-const flat = () => {
-  return List.of(1,2,3,4,5)
-    .map(getPersonById)
-    .flatMap(findFriendsWithinOneYear)
-    .toJS()
-}
+const flat = () => {}
 
 // info(flat())
 
