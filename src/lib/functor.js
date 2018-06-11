@@ -20,7 +20,11 @@ const ageInMonths = person => (person.age.year * 12) + person.age.month
 const showAge = months => `You are now ${months} months old!!`
 
 // ## Usual Implementation
-const usual = () => {}
+const usual = () => {
+  const person = getPersonById(1)
+  const age = ageInMonths(person)
+  return showAge(age)
+}
 
 // inspect(usual())
 
@@ -41,11 +45,12 @@ const usual = () => {}
 
 
 
-
-
 // =====================
 // ## Composing Function
-const comp = () => {}
+const comp = () => {
+  const showPersonAge = compose(showAge, ageInMonths, getPersonById)
+  return showPersonAge(1)
+}
 
 // inspect(comp())
 
@@ -81,9 +86,20 @@ const comp = () => {}
 // =====================
 // ## X in the Box
 
-const xInTheBox = () => {}
+const Box = val => ({
+  map: f => Box(f(val)),
+  fold: () => val,
+  inspect: mkInspect('Box', val)
+})
 
-// inspec(xInTheBox())
+const xInTheBox = () =>
+  Box(2)
+    .map(getPersonById)
+    .map(ageInMonths)
+    .map(showAge)
+    .fold()
+
+// inspect(xInTheBox())
 
 
 
@@ -120,7 +136,12 @@ const xInTheBox = () => {}
 // =====================
 // ## Changing context: single value to multiple value
 
-const multi = () => {}
+const multi = () =>
+  [1,2,3,4]
+    .map(getPersonById)
+    .map(ageInMonths)
+    .map(showAge)
+    .join('\n')
 
 // inspect(multi())
 
@@ -129,7 +150,25 @@ const multi = () => {}
 
 // ## Changing context: With nullability
 
-const nullable = () => {}
+// Maybe a = Just a | Nothing
+
+const Just = val => ({
+  map: f => Just(f(val)),
+  inspect: mkInspect('Just', val)
+})
+
+const Nothing = ({
+  map: _ => Nothing,
+  inspect: () => 'Nothing'
+})
+
+const maybe = val =>
+  val == null ? Nothing : Just(val)
+
+const nullable = () => 
+  maybe(getPersonById(4))
+    .map(ageInMonths)
+    .map(showAge)
 
 // inspect(nullable())
 
@@ -151,7 +190,7 @@ const getPersonByIdTask = id => task(({ resolve, reject }) => {
 
 // ## Changing context: With async
 const withAsync = () => {
-  return getPersonByIdTask(3)
+  return getPersonByIdTask(-7)
     .map(ageInMonths)
     .map(showAge)
 }

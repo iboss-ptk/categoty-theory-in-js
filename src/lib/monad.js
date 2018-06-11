@@ -43,7 +43,10 @@ const findFriendsWithinOneYearTask = person => task(({ resolve, reject }) => {
 })
 
 // flatten structure
-const flat = () => {}
+const flat = () =>
+  List.of(1,2,3,4)
+    .flatMap(x => [x, x])
+    .toJS()
 
 // info(flat())
 
@@ -78,8 +81,10 @@ const flat = () => {}
 // ## chaining call
 
 
-const chainingCall = () => {}
-
+const chainingCall = () =>
+  getPersonByIdTask(1)
+    .chain(findFriendsWithinOneYearTask)
+    .map(x => x.toJS())
 
 // chainingCall()
 //   .run()
@@ -133,7 +138,10 @@ const firstTask = ([x, ...xs]) => task(({ resolve, reject }) => {
   }
 })
 
-const firstFriend = () => {}
+const firstFriend = () =>
+  getPersonByIdTask(1)
+    .chain(findFriendsWithinOneYearTask)
+    .chain(firstTask)
 
 
 // firstFriend()

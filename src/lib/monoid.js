@@ -31,7 +31,10 @@ const AccPerson = {
   })
 }
 
-const accPerson = () => {}
+const accPerson = () =>
+  []
+    .map(getPersonById)
+    .reduce(AccPerson.combine, AccPerson.identity)
 
 // inspect(accPerson())
 
@@ -72,7 +75,10 @@ const OldestPerson = {
   }
 }
 
-const oldestPerson = () => {}
+const oldestPerson = () =>
+  [1,2,3,4]
+    .map(getPersonById)
+    .reduce(OldestPerson.combine, OldestPerson.identity)
 
 // inspect(oldestPerson())
 
